@@ -1,0 +1,22 @@
+{
+  "name": "backend",
+  "version": "1.0.0",
+  "description": "backend server for glpsonline",
+  "main": "index.js",
+  "scripts": {
+    "test": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GLPS-online/backend.git"
+  },
+  "author": "vinoankr",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/GLPS-online/backend/issues"
+  },
+  "homepage": "https://github.com/GLPS-online/backend#readme",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
