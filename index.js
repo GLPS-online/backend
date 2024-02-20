@@ -10,6 +10,17 @@ const { Student } = require("./models");
 
 let students = require("./mock");
 
+// 로컬에서 개발할 때 CORS에러 방지
+const cors = require("cors");
+app.use(
+  cors({
+    allowedHeaders: ["Content-Type"],
+    origin: "*",
+    preflightContinue: true,
+  })
+);
+// deploy 이후 삭제 필요
+
 app.get("/students", async (req, res) => {
   const allStudents = await Student.find();
   return res.status(200).json(allStudents);
