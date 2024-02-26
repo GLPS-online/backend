@@ -1,9 +1,13 @@
 const express = require("express");
 const router = express.Router();
 
-const { Ptla } = require("./models");
+const { Ptla } = require("../models");
 
 router.get("/", async (req, res) => {
+  if (req.query.role) {
+    const ptla = await Ptla.findOne({ role: req.query.role });
+    return res.status(200).json(ptla);
+  }
   const allPtlas = await Ptla.find();
   return res.status(200).json(allPtlas);
 });
