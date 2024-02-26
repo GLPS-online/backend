@@ -6,11 +6,11 @@ const mongoose = require("mongoose");
 const app = express();
 app.use(express.json()); // 미들웨어, 바디로 온 json을 전처리해줌
 
-const { Student } = require("./models");
-
-let students = require("./mock");
+const studentRoute = require("./routes/students");
+const ptlaRoute = require("./routes/ptlas");
 
 // 로컬에서 개발할 때 CORS에러 방지
+// deploy 이후 삭제 필요
 const cors = require("cors");
 app.use(
   cors({
@@ -19,42 +19,9 @@ app.use(
     preflightContinue: true,
   })
 );
-// deploy 이후 삭제 필요
 
-app.get("/students", async (req, res) => {
-  const allStudents = await Student.find();
-  return res.status(200).json(allStudents);
-});
-
-app.get("/students/:id", async (req, res) => {
-  const { id } = req.params;
-  const student = await Student.findOne({ id });
-  return res.status(200).json(student);
-});
-
-app.post("/students", async (req, res) => {
-  const newStudent = new Student({ ...req.body });
-  const insertedStudent = await newStudent.save();
-  return res.status(201).json(insertedStudent);
-});
-
-app.put("/students/:id", async (req, res) => {
-  const { id } = req.params;
-  await Student.updateOne({ id }, req.body);
-  const updatedStudent = await Student.findOne({ id });
-  return res.status(200).json(updatedStudent);
-});
-
-app.delete("/students", async (req, res) => {
-  const deleted = await Student.deleteMany({}).exec();
-  return res.status(200).json(deleted);
-});
-
-app.delete("/students/:id", async (req, res) => {
-  const { id } = req.params;
-  const deletedStudent = await Student.findOneAndDelete({ id });
-  return res.status(200).json(deletedStudent);
-});
+app.use("/students", studentRoute);
+app.use("/ptlas", ptlaRoute);
 
 const start = async () => {
   try {

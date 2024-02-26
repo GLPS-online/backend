@@ -1,12 +1,15 @@
 const mongoose = require("mongoose");
+const { Schema } = mongoose;
 
 // 스키마를 먼저 디자인해야함
 //이미 있는 컬렉션에 접속하려면 스키마가 일치해야함
-const studentSchema = new mongoose.Schema(
+const studentSchema = new Schema(
   {
-    id: {
+    _id: Schema.Types.ObjectId,
+    glpsId: {
       type: Number,
       required: true,
+      unique: true,
     },
     korName: {
       type: String,
@@ -15,6 +18,11 @@ const studentSchema = new mongoose.Schema(
     engName: {
       type: String,
       required: true,
+    },
+    status: {
+      type: String,
+      required: false,
+      default: "active", //'not-enrolled', 'went-home', 'left-camp'
     },
     birthDate: {
       type: Number,
@@ -66,31 +74,210 @@ const studentSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
-    dormFloorNum: {
-      type: Number,
-      required: true,
-    },
     roomNum: {
       type: Number,
       required: true,
     },
-    roomSeatNum: {
+    dormFloorNum: {
       type: Number,
       required: true,
     },
-    clubName: {
-      type: Number,
+    club: {
+      type: String,
       required: false,
+      default: "",
     },
   },
   { strict: true }
 );
+
+const ptlaSchema = new Schema({
+  _id: Schema.Types.ObjectId,
+  user_id: {
+    type: String,
+    required: true,
+  },
+  password: {
+    type: Number,
+    required: true,
+  },
+  admin: {
+    // 관리자 권한 = 모든 셀 수정권한
+    type: Boolean,
+    required: false,
+    default: false,
+  },
+  korName: {
+    type: String,
+    required: true,
+  },
+  engName: {
+    type: String,
+    required: true,
+  },
+  wave: {
+    type: Number,
+    required: true,
+  },
+  gender: {
+    type: String,
+    required: true,
+  },
+  role: {
+    type: String,
+    // glps-coordinator, pa-class4, pa-computer, ta-rp, la-health-m
+    required: true,
+  },
+  designation: {
+    type: String,
+    // 클래스PA의 경우: 어드바이저 호실 M-101
+    // TA의 경우: 맡은 교실 D-207
+    // LA의 경우: 맡은 층 dorm-7
+    // 헤드쿼터 상주: glps-hq
+    // 해당사항 없는 경우: null
+    required: false,
+    default: null,
+  },
+  roomNum: {
+    type: Number,
+    required: true,
+  },
+  club: {
+    type: String,
+    required: false,
+    default: "",
+  },
+});
+
+const LOASchema = new Schema({
+  _id: Schema.Types.ObjectId,
+  studentId: {
+    type: Schema.Types.ObjectId,
+    ref: "Student",
+  },
+  classpaId: {
+    type: Schema.Types.ObjectId,
+    ref: "Ptla",
+  },
+  floorlaId: {
+    type: Schema.Types.ObjectId,
+    ref: "Ptla",
+  },
+  reason: {
+    type: String,
+    required: true,
+  },
+  leftDateTime: {
+    type: Date,
+    required: true,
+  },
+  returnedDateTime: {
+    type: Date,
+    required: false,
+  },
+});
+
+const dischargeSchema = new Schema({
+  _id: Schema.Types.ObjectId,
+  studentId: {
+    type: Schema.Types.ObjectId,
+    ref: "Student",
+  },
+  classpaId: {
+    type: Schema.Types.ObjectId,
+    ref: "Ptla",
+  },
+  floorlaId: {
+    type: Schema.Types.ObjectId,
+    ref: "Ptla",
+  },
+  reason: {
+    type: String,
+    required: true,
+  },
+  leftDateTime: {
+    type: Date,
+    required: true,
+  },
+});
+
+const mealSchema = new Schema({
+  _id: Schema.Types.ObjectId,
+  date: {
+    type: Date,
+    required: true,
+  },
+  time: {
+    type: Number,
+    // 0아침 1점심 2저녁
+    required: true,
+  },
+  menu: {
+    type: String,
+    //엔터로 구분된 메뉴
+    required: true,
+  },
+});
+
+const clubSchema = new Schema({
+  name: String,
+  location: String,
+});
+
+const timetableSchema = new Schema({
+  class: Number,
+  table: [
+    [
+      [
+        { subject: String, location: String },
+        { subject: String, location: String },
+        { subject: String, location: String },
+        { subject: String, location: String },
+      ],
+      [
+        { subject: String, location: String },
+        { subject: String, location: String },
+        { subject: String, location: String },
+        { subject: String, location: String },
+      ],
+      [
+        { subject: String, location: String },
+        { subject: String, location: String },
+        { subject: String, location: String },
+        { subject: String, location: String },
+      ],
+      [
+        { subject: String, location: String },
+        { subject: String, location: String },
+        { subject: String, location: String },
+        { subject: String, location: String },
+      ],
+      [
+        { subject: String, location: String },
+        { subject: String, location: String },
+        { subject: String, location: String },
+        { subject: String, location: String },
+      ],
+      [
+        { subject: String, location: String },
+        { subject: String, location: String },
+      ],
+    ],
+    //월 - 토, 12/34/56/7 교시
+  ],
+});
 
 //이후 모델 함수에 2스키마와 1모델 이름을 넘김.
 //1모델 이름이 현존하는 컬렉션과 일치하거나 3세 번째 인자로 현존하는 컬렉션 이름을 넘겨주면, 현존하는 컬렉션에 연결됨.
 //모델 이름은 항상 소문자이며 복수형 영단어
 
 const Student = mongoose.model("students", studentSchema, "students");
+const Ptla = mongoose.model("ptlas", ptlaSchema, "ptlas");
+const Absence = mongoose.model("absences", LOASchema, "absences");
+const Discharge = mongoose.model("discharges", dischargeSchema, "discharges");
+const Meal = mongoose.model("meals", mealSchema, "meals");
+const Club = mongoose.model("clubs", clubSchema, "clubs");
+const Timetable = mongoose.model("timetables", timetableSchema, "timetables");
 
 // 앞으로 모델을 가지고 작업하면 됨.
-module.exports = { Student };
+module.exports = { Student, Ptla, Absence, Discharge, Meal, Club, Timetable };
