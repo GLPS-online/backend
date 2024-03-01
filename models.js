@@ -83,9 +83,9 @@ const studentSchema = new Schema(
       required: true,
     },
     club: {
-      type: String,
+      type: Schema.Types.ObjectId,
+      ref: "Club",
       required: false,
-      default: "",
     },
   },
   { strict: true }
@@ -143,9 +143,9 @@ const ptlaSchema = new Schema({
     required: true,
   },
   club: {
-    type: String,
+    type: Schema.Types.ObjectId,
+    ref: "Club",
     required: false,
-    default: "",
   },
 });
 
@@ -224,8 +224,30 @@ const clubSchema = new Schema({
   location: String,
 });
 
+const clubChoiceSchema = new Schema({
+  studentId: {
+    type: Schema.Types.ObjectId,
+    ref: "Student",
+  },
+  clubFirstChoice: {
+    type: Schema.Types.ObjectId,
+    ref: "Club",
+    required: false,
+  },
+  clubSecondChoice: {
+    type: Schema.Types.ObjectId,
+    ref: "Club",
+    required: false,
+  },
+  clubThirdChoice: {
+    type: Schema.Types.ObjectId,
+    ref: "Club",
+    required: false,
+  },
+});
+
 const timetableSchema = new Schema({
-  class: Number,
+  class: { type: Number, required: true },
   table: [
     [
       [
@@ -277,7 +299,21 @@ const Absence = mongoose.model("absences", LOASchema, "absences");
 const Discharge = mongoose.model("discharges", dischargeSchema, "discharges");
 const Meal = mongoose.model("meals", mealSchema, "meals");
 const Club = mongoose.model("clubs", clubSchema, "clubs");
+const ClubChoice = mongoose.model(
+  "clubchoices",
+  clubChoiceSchema,
+  "clubchoices"
+);
 const Timetable = mongoose.model("timetables", timetableSchema, "timetables");
 
 // 앞으로 모델을 가지고 작업하면 됨.
-module.exports = { Student, Ptla, Absence, Discharge, Meal, Club, Timetable };
+module.exports = {
+  Student,
+  Ptla,
+  Absence,
+  Discharge,
+  Meal,
+  Club,
+  ClubChoice,
+  Timetable,
+};
