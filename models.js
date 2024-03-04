@@ -249,31 +249,28 @@ const clubChoiceSchema = new Schema({
 const timetableSchema = new Schema({
   className: { type: String, required: true },
   table: [
-    [
-      { subject: String, location: String }, // 월 1~2교시
-      { subject: String, location: String },
-      { subject: String, location: String },
-      { subject: String, location: String },
-      { subject: String, location: String },
-      { subject: String, location: String },
-      { subject: String, location: String },
-      { subject: String, location: String },
-      { subject: String, location: String },
-      { subject: String, location: String },
-      { subject: String, location: String },
-      { subject: String, location: String },
-      { subject: String, location: String },
-      { subject: String, location: String },
-      { subject: String, location: String },
-      { subject: String, location: String },
-      { subject: String, location: String },
-      { subject: String, location: String },
-      { subject: String, location: String },
-      { subject: String, location: String }, // 금 7교시
-      { subject: String, location: String },
-      { subject: String, location: String }, //토 3~4교시
-    ],
-    { strict: true },
+    { subject: String, location: String }, // 월 1~2교시
+    { subject: String, location: String },
+    { subject: String, location: String },
+    { subject: String, location: String },
+    { subject: String, location: String },
+    { subject: String, location: String },
+    { subject: String, location: String },
+    { subject: String, location: String },
+    { subject: String, location: String },
+    { subject: String, location: String },
+    { subject: String, location: String },
+    { subject: String, location: String },
+    { subject: String, location: String },
+    { subject: String, location: String },
+    { subject: String, location: String },
+    { subject: String, location: String },
+    { subject: String, location: String },
+    { subject: String, location: String },
+    { subject: String, location: String },
+    { subject: String, location: String }, // 금 7교시
+    { subject: String, location: String },
+    { subject: String, location: String }, //토 3~4교시
   ],
 });
 
