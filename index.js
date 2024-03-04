@@ -8,6 +8,7 @@ app.use(express.json()); // 미들웨어, 바디로 온 json을 전처리해줌
 
 const studentRoute = require("./routes/students");
 const ptlaRoute = require("./routes/ptlas");
+const timetableRoute = require("./routes/timetables");
 
 // 로컬에서 개발할 때 CORS에러 방지
 // deploy 이후 삭제 필요
@@ -22,6 +23,7 @@ app.use(
 
 app.use("/students", studentRoute);
 app.use("/ptlas", ptlaRoute);
+app.use("/timetables", timetableRoute);
 
 const start = async () => {
   try {
@@ -33,8 +35,8 @@ const start = async () => {
     );
     app.listen(3000, () => console.log("Server started on port 3000"));
   } catch (error) {
-    console.error(error);
-    process.exit(1);
+    console.log(error);
+    // process.exit(1);
   }
 };
 

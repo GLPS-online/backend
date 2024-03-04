@@ -5,7 +5,6 @@ const { Schema } = mongoose;
 //이미 있는 컬렉션에 접속하려면 스키마가 일치해야함
 const studentSchema = new Schema(
   {
-    _id: Schema.Types.ObjectId,
     glpsId: {
       type: Number,
       required: true,
@@ -70,9 +69,14 @@ const studentSchema = new Schema(
       type: String,
       required: true,
     },
-    classNum: {
-      type: Number,
+    className: {
+      type: String, // Liberty, Fraternity etc..
       required: true,
+    },
+    debateClass: {
+      type: String, // A B or null
+      required: false,
+      default: null,
     },
     roomNum: {
       type: Number,
@@ -92,7 +96,6 @@ const studentSchema = new Schema(
 );
 
 const ptlaSchema = new Schema({
-  _id: Schema.Types.ObjectId,
   user_id: {
     type: String,
     required: true,
@@ -150,7 +153,6 @@ const ptlaSchema = new Schema({
 });
 
 const LOASchema = new Schema({
-  _id: Schema.Types.ObjectId,
   studentId: {
     type: Schema.Types.ObjectId,
     ref: "Student",
@@ -178,7 +180,6 @@ const LOASchema = new Schema({
 });
 
 const dischargeSchema = new Schema({
-  _id: Schema.Types.ObjectId,
   studentId: {
     type: Schema.Types.ObjectId,
     ref: "Student",
@@ -202,7 +203,6 @@ const dischargeSchema = new Schema({
 });
 
 const mealSchema = new Schema({
-  _id: Schema.Types.ObjectId,
   date: {
     type: Date,
     required: true,
@@ -247,45 +247,33 @@ const clubChoiceSchema = new Schema({
 });
 
 const timetableSchema = new Schema({
-  class: { type: Number, required: true },
+  className: { type: String, required: true },
   table: [
     [
-      [
-        { subject: String, location: String },
-        { subject: String, location: String },
-        { subject: String, location: String },
-        { subject: String, location: String },
-      ],
-      [
-        { subject: String, location: String },
-        { subject: String, location: String },
-        { subject: String, location: String },
-        { subject: String, location: String },
-      ],
-      [
-        { subject: String, location: String },
-        { subject: String, location: String },
-        { subject: String, location: String },
-        { subject: String, location: String },
-      ],
-      [
-        { subject: String, location: String },
-        { subject: String, location: String },
-        { subject: String, location: String },
-        { subject: String, location: String },
-      ],
-      [
-        { subject: String, location: String },
-        { subject: String, location: String },
-        { subject: String, location: String },
-        { subject: String, location: String },
-      ],
-      [
-        { subject: String, location: String },
-        { subject: String, location: String },
-      ],
+      { subject: String, location: String }, // 월 1~2교시
+      { subject: String, location: String },
+      { subject: String, location: String },
+      { subject: String, location: String },
+      { subject: String, location: String },
+      { subject: String, location: String },
+      { subject: String, location: String },
+      { subject: String, location: String },
+      { subject: String, location: String },
+      { subject: String, location: String },
+      { subject: String, location: String },
+      { subject: String, location: String },
+      { subject: String, location: String },
+      { subject: String, location: String },
+      { subject: String, location: String },
+      { subject: String, location: String },
+      { subject: String, location: String },
+      { subject: String, location: String },
+      { subject: String, location: String },
+      { subject: String, location: String }, // 금 7교시
+      { subject: String, location: String },
+      { subject: String, location: String }, //토 3~4교시
     ],
-    //월 - 토, 12/34/56/7 교시
+    { strict: true },
   ],
 });
 
