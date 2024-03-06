@@ -4,8 +4,9 @@ const credentials = require("./credentials");
 const express = require("express");
 const mongoose = require("mongoose");
 const app = express();
-app.use(express.json()); // 미들웨어, 바디로 온 json을 전처리해줌
+app.use(express.json({ limit: "50mb" })); // 미들웨어, 바디로 온 json을 전처리해줌
 
+const initializeRoute = require("./routes/initialize");
 const studentRoute = require("./routes/students");
 const ptlaRoute = require("./routes/ptlas");
 const timetableRoute = require("./routes/timetables");
@@ -21,6 +22,7 @@ app.use(
   })
 );
 
+app.use("/initialize", initializeRoute);
 app.use("/students", studentRoute);
 app.use("/ptlas", ptlaRoute);
 app.use("/timetables", timetableRoute);

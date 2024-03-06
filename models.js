@@ -3,97 +3,85 @@ const { Schema } = mongoose;
 
 // 스키마를 먼저 디자인해야함
 //이미 있는 컬렉션에 접속하려면 스키마가 일치해야함
-const studentSchema = new Schema(
-  {
-    glpsId: {
-      type: Number,
-      required: true,
-      unique: true,
-    },
-    korName: {
-      type: String,
-      required: true,
-    },
-    engName: {
-      type: String,
-      required: true,
-    },
-    status: {
-      type: String,
-      required: false,
-      default: "active", //'not-enrolled', 'went-home', 'left-camp'
-    },
-    birthDate: {
-      type: Number,
-      required: true,
-    },
-    gender: {
-      type: String,
-      required: true,
-    },
-    school: {
-      type: String,
-      required: true,
-    },
-    grade: {
-      type: Number,
-      required: true,
-    },
-    postNum: {
-      type: String,
-      required: true,
-    },
-    address: {
-      type: String,
-      required: true,
-    },
-    parent1Relation: {
-      type: String,
-      required: true,
-    },
-    parent1Phone: {
-      type: String,
-      required: true,
-    },
-    parent2Relation: {
-      type: String,
-      required: false,
-      default: null,
-    },
-    parent2Phone: {
-      type: String,
-      required: false,
-      default: null,
-    },
-    shirtSize: {
-      type: String,
-      required: true,
-    },
-    className: {
-      type: String, // Liberty, Fraternity etc..
-      required: true,
-    },
-    debateClass: {
-      type: String, // A B or null
-      required: false,
-      default: null,
-    },
-    roomNum: {
-      type: Number,
-      required: true,
-    },
-    dormFloorNum: {
-      type: Number,
-      required: true,
-    },
-    club: {
-      type: Schema.Types.ObjectId,
-      ref: "Club",
-      required: false,
-    },
+const studentSchema = new Schema({
+  glpsId: {
+    type: Number,
+    required: true,
   },
-  { strict: true }
-);
+  korName: {
+    type: String,
+    required: true,
+  },
+  engName: {
+    type: String,
+    required: true,
+  },
+  status: {
+    type: String,
+    required: false,
+    default: "not-enrolled", //'active', 'went-home', 'left-camp'
+  },
+  birthDate: {
+    type: Number,
+    required: true,
+  },
+  gender: {
+    type: String,
+    required: true,
+  },
+  school: {
+    type: String,
+    required: true,
+  },
+  grade: {
+    type: Number,
+    required: true,
+  },
+  postNum: {
+    type: String,
+    required: true,
+  },
+  address: {
+    type: String,
+    required: true,
+  },
+  parent1Relation: {
+    type: String,
+    required: true,
+  },
+  parent1Phone: {
+    type: String,
+    required: true,
+  },
+  parent2Relation: {
+    type: String,
+    required: false,
+    default: null,
+  },
+  parent2Phone: {
+    type: String,
+    required: false,
+    default: null,
+  },
+  shirtSize: {
+    type: String,
+    required: true,
+  },
+  className: {
+    type: String, // Liberty, Fraternity etc..
+    required: true,
+  },
+  roomNum: {
+    type: Number,
+    required: true,
+  },
+  club: {
+    type: Schema.Types.ObjectId,
+    ref: "Club",
+    required: false,
+    default: null,
+  },
+});
 
 const ptlaSchema = new Schema({
   user_id: {

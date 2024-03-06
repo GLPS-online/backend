@@ -18,4 +18,11 @@ router.post("/", async (req, res) => {
   return res.status(201).json(created);
 });
 
+router.put("/:id", async (req, res) => {
+  const { id } = req.params;
+  await Ptla.updateOne({ id }, req.body);
+  const updated = await Ptla.findOne({ id });
+  return res.status(200).json(updated);
+});
+
 module.exports = router;
