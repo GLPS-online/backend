@@ -14,11 +14,15 @@ router.get("/", async (req, res) => {
 //   return res.status(200).json(student);
 // });
 
-// router.post("/", async (req, res) => {
-//   const newStudent = new Student({ ...req.body });
-//   const created = await newStudent.save();
-//   return res.status(201).json(created);
-// });
+router.post("/", async (req, res) => {
+  let count = 0;
+  await req.body.forEach(async (element) => {
+    count++;
+    const newStudent = new Student({ ...element });
+    await newStudent.save();
+  });
+  return res.status(201).json({ msg: `initlized ${count} studnets` });
+});
 
 router.put("/:id", async (req, res) => {
   const { id } = req.params;
@@ -27,10 +31,10 @@ router.put("/:id", async (req, res) => {
   return res.status(200).json(updated);
 });
 
-// router.delete("/", async (req, res) => {
-//   const deleted = await Student.deleteMany({}).exec();
-//   return res.status(200).json(deleted);
-// });
+router.delete("/", async (req, res) => {
+  const deleted = await Student.deleteMany({}).exec();
+  return res.status(200).json(deleted);
+});
 
 // router.delete("/:id", async (req, res) => {
 //   const { id } = req.params;

@@ -119,7 +119,7 @@ const ptlaSchema = new Schema({
     // glps-coordinator, pa-class4, pa-computer, ta-rp, la-health-m
     required: true,
   },
-  designation: {
+  area: {
     type: String,
     // 클래스PA의 경우: 어드바이저 호실 M-101
     // TA의 경우: 맡은 교실 D-207
