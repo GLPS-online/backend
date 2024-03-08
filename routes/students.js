@@ -8,11 +8,11 @@ router.get("/", async (req, res) => {
   return res.status(200).json(allStudents);
 });
 
-// router.get("/:id", async (req, res) => {
-//   const { id } = req.params;
-//   const student = await Student.findOne({ id });
-//   return res.status(200).json(student);
-// });
+router.get("/:id", async (req, res) => {
+  const { id } = req.params;
+  const student = await Student.findById(id);
+  return res.status(200).json(student);
+});
 
 router.post("/", async (req, res) => {
   let count = 0;
@@ -26,7 +26,7 @@ router.post("/", async (req, res) => {
 
 router.put("/:id", async (req, res) => {
   const { id } = req.params;
-  await Student.updateOne({ id }, req.body);
+  await Student.findByIdAndUpdate(id, req.body);
   const updated = await Student.findOne({ id });
   return res.status(200).json(updated);
 });
@@ -36,10 +36,10 @@ router.delete("/", async (req, res) => {
   return res.status(200).json(deleted);
 });
 
-// router.delete("/:id", async (req, res) => {
-//   const { id } = req.params;
-//   const deleted = await Student.findOneAndDelete({ id });
-//   return res.status(200).json(deleted);
-// });
+router.delete("/:id", async (req, res) => {
+  const { id } = req.params;
+  const deleted = await Student.findByIdAndDelete(id);
+  return res.status(200).json(deleted);
+});
 
 module.exports = router;
