@@ -129,10 +129,8 @@ const ptlaSchema = new Schema({
   },
   area: {
     type: String,
-    // 클래스PA의 경우: 어드바이저 호실 M-101
     // TA의 경우: 맡은 교실 D-207
     // LA의 경우: 맡은 층 dorm-7
-    // 헤드쿼터 상주: glps-hq
     // 해당사항 없는 경우: null
     required: false,
     default: null,
@@ -145,6 +143,7 @@ const ptlaSchema = new Schema({
     type: Schema.Types.ObjectId,
     ref: "Club",
     required: false,
+    default: null,
   },
 });
 
