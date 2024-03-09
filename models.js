@@ -114,6 +114,14 @@ const ptlaSchema = new Schema({
     type: String,
     required: true,
   },
+  phone: {
+    type: String,
+    required: true,
+  },
+  division: {
+    type: String,
+    required: true,
+  },
   role: {
     type: String,
     // glps-coordinator, pa-class4, pa-computer, ta-rp, la-health-m
