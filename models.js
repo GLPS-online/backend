@@ -243,6 +243,8 @@ const clubChoiceSchema = new Schema({
 
 const timetableSchema = new Schema({
   className: { type: String, required: true },
+  advisor: { type: String, required: true },
+  office: { type: String, required: true },
   table: [
     { subject: String, location: String }, // 월 1~2교시
     { subject: String, location: String },

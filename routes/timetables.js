@@ -16,9 +16,12 @@ router.get("/:className", async (req, res) => {
 
 router.post("/:className", async (req, res) => {
   const { className } = req.params;
-  const table = req.body;
+  // console.log(req.body);
+  const { advisor, office, table } = req.body;
   const newTimetable = new Timetable({
     className,
+    advisor,
+    office,
     table,
   });
   const created = await newTimetable.save();
