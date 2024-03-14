@@ -29,13 +29,20 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/", async (req, res) => {
-  // let count = 0;
-  // await req.body.forEach(async (element) => {
-  //   count++;
-  //   const newPtla = new Ptla({ ...element });
-  //   await newPtla.save();
-  // });
-  // return res.status(201).json({ msg: `initlized ${count} ptlas` });
+  try {
+    let count = 0;
+    const promises = req.body.map(async (element) => {
+      const newPtla = new Ptla({ ...element });
+      await newPtla.save();
+      count++;
+    });
+    await Promise.all(promises);
+    return res.status(201).json({ msg: `initlized ${count} ptlas` });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({ msg: "failed to create" });
+  }
+
   try {
     const newPtla = new Ptla({ ...req.body });
     const created = await newPtla.save();
@@ -53,6 +60,15 @@ router.put("/:id", async (req, res) => {
     return res.status(200).json(updated);
   } catch (err) {
     return res.status(500).json({ msg: "failed to update" });
+  }
+});
+
+router.delete("/", async (req, res) => {
+  try {
+    const deleted = await Ptla.deleteMany({ admin: { $ne: 2 } }).exec();
+    return res.status(200).json(deleted);
+  } catch (err) {
+    return res.status(500).json({ msg: "failed to delete all" });
   }
 });
 

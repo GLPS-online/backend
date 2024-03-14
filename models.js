@@ -93,10 +93,10 @@ const ptlaSchema = new Schema({
     required: true,
   },
   admin: {
-    // 관리자 권한 = 모든 셀 수정권한
-    type: Boolean,
+    type: Number,
+    enum: [0, 1, 2],
     required: false,
-    default: false,
+    default: 0,
   },
   korName: {
     type: String,
