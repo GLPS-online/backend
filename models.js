@@ -67,6 +67,16 @@ const studentSchema = new Schema({
     type: String,
     required: true,
   },
+  allergy: {
+    type: String,
+    required: false,
+    default: null,
+  },
+  sibling: {
+    type: String,
+    required: false,
+    default: null,
+  },
   className: {
     type: String, // Liberty, Fraternity etc..
     required: true,
