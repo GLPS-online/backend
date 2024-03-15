@@ -5,7 +5,9 @@ const { Student } = require("../models");
 
 router.get("/", async (req, res) => {
   try {
-    const allStudents = await Student.find();
+    const allStudents = await Student.find().select(
+      "_id korName school className roomNum"
+    );
     return res.status(200).json(allStudents);
   } catch (err) {
     return res.status(500).json({ msg: "failed to load" });

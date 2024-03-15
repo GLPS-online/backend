@@ -19,7 +19,7 @@ const studentSchema = new Schema({
   status: {
     type: String,
     required: false,
-    default: "not-enrolled", //'active', 'went-home', 'left-camp'
+    default: "not-enrolled", //'enrolled', 'went-home', 'left-camp'
   },
   birthDate: {
     type: Number,
