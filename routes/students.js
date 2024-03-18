@@ -43,7 +43,7 @@ router.put("/:id", async (req, res) => {
   try {
     const { id } = req.params;
     await Student.findByIdAndUpdate(id, req.body);
-    const updated = await Student.findOne({ id });
+    const updated = await Student.findById(id);
     return res.status(200).json(updated);
   } catch (err) {
     return res.status(500).json({ msg: "failed to update" });
