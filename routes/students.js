@@ -27,9 +27,9 @@ router.get("/:id", async (req, res) => {
 router.post("/", async (req, res) => {
   try {
     let count = 0;
-    const promises = req.body.map(async (element) => {
+    const promises = req.body.map((element) => {
       const newStudent = new Student({ ...element });
-      await newStudent.save();
+      newStudent.save();
       count++;
     });
     await Promise.all(promises);
