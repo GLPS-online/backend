@@ -27,12 +27,11 @@ router.get("/:id", async (req, res) => {
 router.post("/", async (req, res) => {
   try {
     let count = 0;
-    const promises = req.body.map((element) => {
-      const newStudent = new Student({ ...element });
-      newStudent.save();
+    for (const item of req.body) {
+      const newStudent = new Student({ ...item });
+      await newStudent.save();
       count++;
-    });
-    await Promise.all(promises);
+    }
     return res.status(201).json({ msg: `initlized ${count} studnets` });
   } catch (err) {
     return res.status(500).json({ msg: "failed to initialize" });
