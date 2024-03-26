@@ -34,7 +34,7 @@ const start = async () => {
         dbName: `glps`,
       }
     );
-    app.listen(3000, () => console.log("Server started on port 3000"));
+    app.listen(443, () => console.log("Server started on port 443"));
   } catch (error) {
     console.log(error);
     // process.exit(1);
