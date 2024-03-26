@@ -1,5 +1,4 @@
-// import password from "./password";
-const credentials = require("./credentials");
+require("dotenv").config();
 
 const express = require("express");
 const mongoose = require("mongoose");
@@ -27,8 +26,10 @@ app.use("/timetables", timetableRoute);
 
 const start = async () => {
   try {
+    const mongoid = process.env.MONGO_ID;
+    const mongopw = process.env.MONGO_PW;
     await mongoose.connect(
-      `mongodb+srv://${credentials.id}:${credentials.password}@cluster0.odlbq4i.mongodb.net/?retryWrites=true&w=majority`,
+      `mongodb+srv://${mongoid}:${mongopw}@cluster0.odlbq4i.mongodb.net/?retryWrites=true&w=majority`,
       {
         dbName: `glps`,
       }

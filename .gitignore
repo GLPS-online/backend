@@ -2,3 +2,4 @@
 *.http
 mock.js
 credentials.js
+.env
