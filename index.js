@@ -19,7 +19,9 @@ app.use(
     preflightContinue: true,
   })
 );
-
+app.get("/", (req, res) => {
+  res.status(200).send({ message: "WELCOME TO GLPS ONLINE BACKEND SERVER" });
+});
 app.use("/students", studentRoute);
 app.use("/ptlas", ptlaRoute);
 app.use("/timetables", timetableRoute);
@@ -34,7 +36,7 @@ const start = async () => {
         dbName: `glps`,
       }
     );
-    app.listen(443, () => console.log("Server started on port 443"));
+    app.listen(8080, () => console.log("Server started on port 8080"));
   } catch (error) {
     console.log(error);
     // process.exit(1);
