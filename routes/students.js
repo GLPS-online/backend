@@ -6,7 +6,8 @@ const { Student } = require("../models");
 router.get("/", async (req, res) => {
   try {
     const allStudents = await Student.find().select(
-      "_id korName school className roomNum"
+      // "_id korName school className roomNum"
+      "_id"
     );
     return res.status(200).json(allStudents);
   } catch (err) {
