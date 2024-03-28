@@ -19,13 +19,13 @@ jobs:
     steps:
       # 브런치로 체크아웃
       - name: 해당 브런치로 체크아웃
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
-      # nodeJs를 설치합니다.
-      - name: 노드 설치
-        uses: actions/setup-node@v1
-        with:
-          node-version: 16
+      # # nodeJs를 설치합니다.
+      # - name: 노드 설치
+      #   uses: actions/setup-node@v1
+      #   with:
+      #     node-version: 16
 
       # package.json의 dependencies 설치
       - name: 프로젝트 디펜던시 설치
@@ -50,4 +50,7 @@ jobs:
           host: ${{ secrets.LIGHTSAIL_HOST }}
           username: ${{env.LIGHTSAIL_USERNAME}}
           key: ${{ secrets.LIGHTSAIL_SSH_KEY }}
-          script: pm2 restart /srv/backend/index.js
+          script: cd /srv/backend/
+            git pull origin main
+            yarn
+            pm2 restart /srv/backend/index.js
