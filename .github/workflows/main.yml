@@ -2,9 +2,9 @@ name: CI CD
 
 on:
   push:
-    branches: ['main']
+    branches: ["main"]
   pull_request:
-    branches: ['main']
+    branches: ["main"]
 
 env:
   LIGHTSAIL_SSH_KEY: ${{ secrets.LIGHTSAIL_SSH_KEY }}
@@ -17,7 +17,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-
       # 브런치로 체크아웃
       - name: 해당 브런치로 체크아웃
         uses: actions/checkout@v2
@@ -25,6 +24,8 @@ jobs:
       # nodeJs를 설치합니다.
       - name: 노드 설치
         uses: actions/setup-node@v1
+        with:
+          node-version: 16
 
       # package.json의 dependencies 설치
       - name: 프로젝트 디펜던시 설치
@@ -50,4 +51,3 @@ jobs:
           username: ${{env.LIGHTSAIL_USERNAME}}
           key: ${{ secrets.LIGHTSAIL_SSH_KEY }}
           script: pm2 restart index.js
-        
