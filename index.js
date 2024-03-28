@@ -3,8 +3,13 @@ require("dotenv").config();
 const express = require("express");
 const mongoose = require("mongoose");
 const app = express();
-app.use(express.json({ limit: "50mb" })); // 미들웨어, 바디로 온 json을 전처리해줌
+const cookieParser = require("cookie-parser");
 
+app.use(express.json({ limit: "50mb" })); // 미들웨어, 바디로 온 json을 전처리해줌
+app.use(cookieParser());
+
+const authRoute = require("./routes/auth");
+const userRoute = require("./routes/user");
 const studentRoute = require("./routes/students");
 const ptlaRoute = require("./routes/ptlas");
 const timetableRoute = require("./routes/timetables");
@@ -20,6 +25,9 @@ app.use(
 app.get("/", (req, res) => {
   res.status(200).send({ message: "WELCOME TO GLPS ONLINE BACKEND SERVER" });
 });
+// Define user routes
+app.use("/user", userRoute);
+app.use("/auth", authRoute);
 app.use("/students", studentRoute);
 app.use("/ptlas", ptlaRoute);
 app.use("/timetables", timetableRoute);

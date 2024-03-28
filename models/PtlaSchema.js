@@ -1,3 +1,4 @@
+const bcrypt = require("bcrypt");
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
@@ -6,15 +7,9 @@ const ptlaSchema = new Schema(
     user_id: {
       type: String,
       trim: true, //공백 제거
-      unique: 1,
+      unique: true,
     },
     password: String,
-    token: {
-      type: String,
-    },
-    tokenExp: {
-      type: Number, //토큰 유효기간
-    },
     admin: {
       type: Number,
       enum: [0, 1, 2],
@@ -55,6 +50,34 @@ const ptlaSchema = new Schema(
   },
   { timestamps: { updatedAt: "updated_at" } }
 );
+
+ptlaSchema.pre("save", async function (next) {
+  const user = this;
+  if (!user.isModified("password")) {
+    return next();
+  }
+  try {
+    const salt = await bcrypt.genSalt();
+    user.password = await bcrypt.hash(user.password, salt);
+    next();
+  } catch (error) {
+    return next(error);
+  }
+});
+
+// ptlaSchema.methods.comparePassword = async (password) => {
+//   return bcrypt.compare(password, this.password);
+// };
+
+// ptlaSchema.methods.generateToken = async () => {
+//   let user = this;
+//   let token = jwt.sign(user._id.toHexString(), "randomToken", {
+//     expiresIn: "24 hour",
+//   });
+//   user.token = token;
+//   const newUser = await user.save();
+//   return newUser;
+// };
 
 const Ptla = mongoose.model("ptlas", ptlaSchema, "ptlas");
 

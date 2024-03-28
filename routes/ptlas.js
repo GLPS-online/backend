@@ -28,6 +28,17 @@ router.get("/", async (req, res) => {
   }
 });
 
+// router.post("/", async (req, res) => {
+//   try {
+//     const newPtla = new Ptla({ ...req.body });
+//     const created = await newPtla.save();
+//     console.log(created);
+//     return res.status(201).json(created);
+//   } catch (err) {
+//     return res.status(500).json({ msg: "failed to create" });
+//   }
+// });
+
 router.post("/", async (req, res) => {
   try {
     let count = 0;
@@ -40,14 +51,6 @@ router.post("/", async (req, res) => {
     return res.status(201).json({ msg: `initlized ${count} ptlas` });
   } catch (err) {
     console.log(err);
-    return res.status(500).json({ msg: "failed to create" });
-  }
-
-  try {
-    const newPtla = new Ptla({ ...req.body });
-    const created = await newPtla.save();
-    return res.status(201).json(created);
-  } catch (err) {
     return res.status(500).json({ msg: "failed to create" });
   }
 });
