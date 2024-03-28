@@ -28,8 +28,8 @@ jobs:
       #     node-version: 16
 
       # package.json의 dependencies 설치
-      - name: 프로젝트 디펜던시 설치
-        run: yarn
+      # - name: 프로젝트 디펜던시 설치
+      #   run: yarn
 
       # AWS 인증을 시작합니다.
       - name: AWS 인증하기
@@ -53,4 +53,4 @@ jobs:
           script: cd /srv/backend/
             git pull origin main
             yarn
-            pm2 restart /srv/backend/index.js
+            pm2 restart index.js
