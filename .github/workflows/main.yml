@@ -50,7 +50,8 @@ jobs:
           host: ${{ secrets.LIGHTSAIL_HOST }}
           username: ${{env.LIGHTSAIL_USERNAME}}
           key: ${{ secrets.LIGHTSAIL_SSH_KEY }}
-          script: cd /srv/backend/
+          script: |
+            cd /srv/backend/
             git pull origin main
             yarn
             pm2 restart index.js
