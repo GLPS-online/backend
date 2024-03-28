@@ -50,4 +50,4 @@ jobs:
           host: ${{ secrets.LIGHTSAIL_HOST }}
           username: ${{env.LIGHTSAIL_USERNAME}}
           key: ${{ secrets.LIGHTSAIL_SSH_KEY }}
-          script: pm2 restart index.js
+          script: pm2 restart /srv/backend/index.js
