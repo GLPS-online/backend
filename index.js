@@ -9,13 +9,11 @@ const studentRoute = require("./routes/students");
 const ptlaRoute = require("./routes/ptlas");
 const timetableRoute = require("./routes/timetables");
 
-// 로컬에서 개발할 때 CORS에러 방지
-// deploy 이후 삭제 필요
 const cors = require("cors");
 app.use(
   cors({
     allowedHeaders: ["Content-Type"],
-    origin: "*",
+    origin: "http://localhost:3000/",
     preflightContinue: true,
   })
 );
