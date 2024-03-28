@@ -13,7 +13,7 @@ const cors = require("cors");
 app.use(
   cors({
     allowedHeaders: ["Content-Type"],
-    origin: "http://localhost:3000/",
+    origin: "http://localhost:3001",
     preflightContinue: true,
   })
 );
