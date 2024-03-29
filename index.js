@@ -2,8 +2,8 @@ require("dotenv").config();
 
 const express = require("express");
 const mongoose = require("mongoose");
-const app = express();
 const cookieParser = require("cookie-parser");
+const app = express();
 
 app.use(express.json({ limit: "50mb" })); // 미들웨어, 바디로 온 json을 전처리해줌
 app.use(cookieParser());
@@ -17,6 +17,7 @@ const timetableRoute = require("./routes/timetables");
 const cors = require("cors");
 app.use(
   cors({
+    credentials: true,
     allowedHeaders: ["Content-Type"],
     origin: "http://localhost:3001",
     preflightContinue: true,

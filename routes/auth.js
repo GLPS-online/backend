@@ -9,6 +9,7 @@ router.post("/signup", async (req, res) => {
   try {
     const newPtla = new Ptla({ ...req.body });
     const created = await newPtla.save();
+    console.log(created);
     return res.status(201).json(created);
   } catch (err) {
     return res.status(500).json({ msg: "failed to create " + err });
@@ -17,6 +18,7 @@ router.post("/signup", async (req, res) => {
 
 router.post("/login", async (req, res) => {
   try {
+    console.log("handle login");
     const { user_id, password } = req.body;
     const user = await Ptla.findOne({ user_id });
     if (!user) {

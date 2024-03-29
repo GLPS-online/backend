@@ -1,9 +1,10 @@
 const express = require("express");
 const router = express.Router();
+const { authenticate } = require("../middlewares/auth");
 
 const { Student } = require("../models");
 
-router.get("/", async (req, res) => {
+router.get("/", authenticate, async (req, res) => {
   try {
     const allStudents = await Student.find().select(
       "_id korName school className roomNum"
