@@ -24,7 +24,7 @@ app.use(
   })
 );
 app.get("/", (req, res) => {
-  res.status(200).send({ message: "WELCOME TO GLPS ONLINE BACKEND SERVER" });
+  res.status(200).send({ msg: "WELCOME TO GLPS ONLINE BACKEND SERVER" });
 });
 // Define user routes
 app.use("/user", userRoute);
@@ -70,7 +70,7 @@ start();
 //   if (student) {
 //     res.send(student);
 //   } else {
-//     res.status(404).send({ message: "CANNOT FIND STUDENT" });
+//     res.status(404).send({ msg: "CANNOT FIND STUDENT" });
 //   }
 // });
 
@@ -94,7 +94,7 @@ start();
 //     }
 //     res.send(student);
 //   } else {
-//     res.status(404).send({ message: "CANNOT FIND STUDENT" });
+//     res.status(404).send({ msg: "CANNOT FIND STUDENT" });
 //   }
 // });
 
@@ -105,6 +105,6 @@ start();
 //   if (students.length < length) {
 //     res.send("deleted");
 //   } else {
-//     res.status(404).send({ message: "CANNOT FIND STUDENT" });
+//     res.status(404).send({ msg: "CANNOT FIND STUDENT" });
 //   }
 // });

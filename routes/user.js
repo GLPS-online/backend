@@ -4,7 +4,7 @@ const { authenticate } = require("../middlewares/auth");
 const router = express.Router();
 
 router.get("/profile", authenticate, (req, res) => {
-  res.json({ message: `Welcome ${req.user.user_id}` });
+  res.json({ msg: `Welcome ${req.user.user_id}` });
 });
 
 module.exports = router;

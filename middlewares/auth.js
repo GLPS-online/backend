@@ -5,20 +5,20 @@ const authenticate = async (req, res, next) => {
   const token = req.cookies.auth;
 
   if (!token) {
-    return res.status(401).json({ message: "Authentication required" });
+    return res.status(401).json({ msg: "Authentication required" });
   }
 
   try {
     const decodedToken = jwt.verify(token, process.env.SECRET_KEY);
     const user = await Ptla.findById(decodedToken.userId);
     if (!user) {
-      return res.status(404).json({ message: "User not found" });
+      return res.status(404).json({ msg: "User not found" });
     }
 
     req.user = user;
     next();
   } catch (err) {
-    res.status(401).json({ message: "Invalid token" + err });
+    res.status(401).json({ msg: "Invalid token" + err });
   }
 };
 
