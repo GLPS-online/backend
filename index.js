@@ -19,7 +19,7 @@ app.use(
   cors({
     credentials: true,
     allowedHeaders: ["Content-Type"],
-    origin: "http://localhost:3001",
+    origin: true,
     preflightContinue: true,
   })
 );
