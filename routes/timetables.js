@@ -1,9 +1,10 @@
 const express = require("express");
 const router = express.Router();
+const { authenticate } = require("../middlewares/auth");
 
 const { Timetable } = require("../models");
 
-router.get("/", async (req, res) => {
+router.get("/", authenticate, async (req, res) => {
   try {
     const allTimetables = await Timetable.find().select("_id className");
     return res.status(200).json(allTimetables);
@@ -12,7 +13,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.get("/:className", async (req, res) => {
+router.get("/:className", authenticate, async (req, res) => {
   try {
     const { className } = req.params;
     const timetable = await Timetable.findOne({ className });
@@ -22,7 +23,10 @@ router.get("/:className", async (req, res) => {
   }
 });
 
-router.post("/:className", async (req, res) => {
+router.post("/:className", authenticate, async (req, res) => {
+  if (req.user.admin < 2) {
+    return res.status(403).json({ msg: "no privilege" });
+  }
   try {
     const { className } = req.params;
     // console.log(req.body);
@@ -40,7 +44,10 @@ router.post("/:className", async (req, res) => {
   }
 });
 
-router.delete("/:className", async (req, res) => {
+router.delete("/:className", authenticate, async (req, res) => {
+  if (req.user.admin < 2) {
+    return res.status(403).json({ msg: "no privilege" });
+  }
   try {
     const { className } = req.params;
     const deleted = await Timetable.findOneAndDelete({ className });

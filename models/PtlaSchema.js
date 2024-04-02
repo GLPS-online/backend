@@ -29,7 +29,7 @@ const ptlaSchema = new Schema(
       enum: ["PA", "LA", "TA", "HQ"],
       required: true,
     },
-    role: String,
+    position: String,
     // glps-coordinator, pa-class4, pa-computer, ta-rp, la-health-m
 
     area: {

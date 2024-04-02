@@ -15,7 +15,7 @@ router.get("/", authenticate, async (req, res) => {
   }
 });
 
-router.get("/:id", async (req, res) => {
+router.get("/:id", authenticate, async (req, res) => {
   try {
     const { id } = req.params;
     const student = await Student.findById(id);
@@ -25,7 +25,10 @@ router.get("/:id", async (req, res) => {
   }
 });
 
-router.post("/", async (req, res) => {
+router.post("/", authenticate, async (req, res) => {
+  if (req.user.admin < 2) {
+    return res.status(403).json({ msg: "no privilege" });
+  }
   try {
     let count = 0;
     for (const item of req.body) {
@@ -39,7 +42,10 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.put("/:id", async (req, res) => {
+router.put("/:id", authenticate, async (req, res) => {
+  if (req.user.admin < 1) {
+    return res.status(403).json({ msg: "no privilege" });
+  }
   try {
     const { id } = req.params;
     await Student.findByIdAndUpdate(id, req.body);
@@ -50,7 +56,10 @@ router.put("/:id", async (req, res) => {
   }
 });
 
-router.delete("/", async (req, res) => {
+router.delete("/", authenticate, async (req, res) => {
+  if (req.user.admin < 2) {
+    return res.status(403).json({ msg: "no privilege" });
+  }
   try {
     const deleted = await Student.deleteMany({}).exec();
     return res.status(200).json(deleted);
@@ -59,14 +68,14 @@ router.delete("/", async (req, res) => {
   }
 });
 
-router.delete("/:id", async (req, res) => {
-  try {
-    const { id } = req.params;
-    const deleted = await Student.findByIdAndDelete(id);
-    return res.status(200).json(deleted);
-  } catch (err) {
-    return res.status(500).json({ msg: "failed to delete" });
-  }
-});
+// router.delete("/:id", authenticate, async (req, res) => {
+//   try {
+//     const { id } = req.params;
+//     const deleted = await Student.findByIdAndDelete(id);
+//     return res.status(200).json(deleted);
+//   } catch (err) {
+//     return res.status(500).json({ msg: "failed to delete" });
+//   }
+// });
 
 module.exports = router;

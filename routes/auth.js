@@ -47,6 +47,19 @@ router.post("/login", async (req, res) => {
   }
 });
 
+router.put("/grantAdmin/:id", authenticate, async (req, res) => {
+  if (req.user.admin < 2) {
+    return res.status(403).json({ msg: "no privilege" });
+  }
+  try {
+    const { id } = req.params;
+    await Ptla.findByIdAndUpdate(id, { admin: 1 });
+    return res.status(200).json(req.user);
+  } catch (error) {
+    return res.status(500).json({ msg: "failed grand  " + error });
+  }
+});
+
 router.get("/me", authenticate, async (req, res) => {
   try {
     return res.status(200).json(req.user);

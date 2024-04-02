@@ -9,7 +9,6 @@ app.use(express.json({ limit: "50mb" })); // 미들웨어, 바디로 온 json을
 app.use(cookieParser());
 
 const authRoute = require("./routes/auth");
-const userRoute = require("./routes/user");
 const studentRoute = require("./routes/students");
 const ptlaRoute = require("./routes/ptlas");
 const timetableRoute = require("./routes/timetables");
@@ -26,8 +25,6 @@ app.use(
 app.get("/", (req, res) => {
   res.status(200).send({ msg: "WELCOME TO GLPS ONLINE BACKEND SERVER" });
 });
-// Define user routes
-app.use("/user", userRoute);
 app.use("/auth", authRoute);
 app.use("/students", studentRoute);
 app.use("/ptlas", ptlaRoute);
