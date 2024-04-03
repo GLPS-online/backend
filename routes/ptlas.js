@@ -72,16 +72,29 @@ router.put("/:id", authenticate, async (req, res) => {
   }
 });
 
-router.delete("/", authenticate, async (req, res) => {
+router.delete("/:id", authenticate, async (req, res) => {
   if (req.user.admin < 2) {
     return res.status(403).json({ msg: "no privilege" });
   }
+  const { id } = req.params;
   try {
-    const deleted = await Ptla.deleteMany({ admin: { $ne: 2 } }).exec();
+    const deleted = await Ptla.findByIdAndDelete(id).exec();
     return res.status(200).json(deleted);
   } catch (err) {
-    return res.status(500).json({ msg: "failed to delete all" });
+    return res.status(500).json({ msg: "failed to delete one" });
   }
 });
+
+// router.delete("/", authenticate, async (req, res) => {
+//   if (req.user.admin < 2) {
+//     return res.status(403).json({ msg: "no privilege" });
+//   }
+//   try {
+//     const deleted = await Ptla.deleteMany({ admin: { $ne: 2 } }).exec();
+//     return res.status(200).json(deleted);
+//   } catch (err) {
+//     return res.status(500).json({ msg: "failed to delete all" });
+//   }
+// });
 
 module.exports = router;

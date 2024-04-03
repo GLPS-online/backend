@@ -51,10 +51,11 @@ router.put("/grantAdmin/:id", authenticate, async (req, res) => {
   if (req.user.admin < 2) {
     return res.status(403).json({ msg: "no privilege" });
   }
+  const { id } = req.params;
   try {
-    const { id } = req.params;
-    await Ptla.findByIdAndUpdate(id, { admin: 1 });
-    return res.status(200).json(req.user);
+    await Ptla.findByIdAndUpdate(id, { admin: "1" });
+    const updated = await Ptla.findById(id);
+    return res.status(200).json(updated);
   } catch (error) {
     return res.status(500).json({ msg: "failed grand  " + error });
   }
