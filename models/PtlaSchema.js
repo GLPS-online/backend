@@ -4,7 +4,7 @@ const { Schema } = mongoose;
 
 const ptlaSchema = new Schema(
   {
-    user_id: {
+    email: {
       type: String,
       trim: true, //공백 제거
       unique: true,

@@ -21,8 +21,8 @@ router.post("/signup", async (req, res) => {
 router.post("/login", async (req, res) => {
   try {
     console.log("handle login");
-    const { user_id, password } = req.body;
-    const user = await Ptla.findOne({ user_id });
+    const { email, password } = req.body;
+    const user = await Ptla.findOne({ email });
     if (!user) {
       return res.status(404).json({ msg: "User not found" });
     }
