@@ -4,14 +4,14 @@ const { authenticate } = require("../middlewares/auth");
 
 const { Timetable } = require("../models");
 
-router.get("/", authenticate, async (req, res) => {
-  try {
-    const allTimetables = await Timetable.find().select("_id className");
-    return res.status(200).json(allTimetables);
-  } catch (err) {
-    return res.status(500).json({ msg: "failed to load" });
-  }
-});
+// router.get("/", authenticate, async (req, res) => {
+//   try {
+//     const allTimetables = await Timetable.find().select("_id className");
+//     return res.status(200).json(allTimetables);
+//   } catch (err) {
+//     return res.status(500).json({ msg: "failed to load" });
+//   }
+// });
 
 router.get("/:className", authenticate, async (req, res) => {
   try {

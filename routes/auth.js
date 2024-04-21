@@ -5,12 +5,12 @@ const jwt = require("jsonwebtoken");
 
 const { authenticate } = require("../middlewares/auth");
 
-const { Ptla } = require("../models");
+const { User } = require("../models");
 
 router.post("/signup", async (req, res) => {
   try {
-    const newPtla = new Ptla({ ...req.body });
-    const created = await newPtla.save();
+    const newUser = new User({ ...req.body });
+    const created = await newUser.save();
     console.log(created);
     return res.status(201).json(created);
   } catch (err) {
@@ -22,7 +22,7 @@ router.post("/login", async (req, res) => {
   try {
     console.log("handle login");
     const { email, password } = req.body;
-    const user = await Ptla.findOne({ email });
+    const user = await User.findOne({ email });
     if (!user) {
       return res.status(404).json({ msg: "User not found" });
     }
@@ -53,8 +53,8 @@ router.put("/grantAdmin/:id", authenticate, async (req, res) => {
   }
   const { id } = req.params;
   try {
-    await Ptla.findByIdAndUpdate(id, { admin: "1" });
-    const updated = await Ptla.findById(id);
+    await User.findByIdAndUpdate(id, { admin: "1" });
+    const updated = await User.findById(id);
     return res.status(200).json(updated);
   } catch (error) {
     return res.status(500).json({ msg: "failed grand  " + error });

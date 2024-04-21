@@ -10,7 +10,7 @@ app.use(cookieParser());
 
 const authRoute = require("./routes/auth");
 const studentRoute = require("./routes/students");
-const ptlaRoute = require("./routes/ptlas");
+const userRoute = require("./routes/users");
 const timetableRoute = require("./routes/timetables");
 
 const cors = require("cors");
@@ -27,7 +27,7 @@ app.get("/", (req, res) => {
 });
 app.use("/auth", authRoute);
 app.use("/students", studentRoute);
-app.use("/ptlas", ptlaRoute);
+app.use("/users", userRoute);
 app.use("/timetables", timetableRoute);
 
 const start = async () => {

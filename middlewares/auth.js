@@ -1,5 +1,5 @@
 const jwt = require("jsonwebtoken");
-const { Ptla } = require("../models");
+const { User } = require("../models");
 
 const authenticate = async (req, res, next) => {
   const token = req.cookies.auth;
@@ -10,7 +10,7 @@ const authenticate = async (req, res, next) => {
 
   try {
     const decodedToken = jwt.verify(token, process.env.SECRET_KEY);
-    const user = await Ptla.findById(decodedToken.userId);
+    const user = await User.findById(decodedToken.userId);
     if (!user) {
       return res.status(404).json({ msg: "User not found" });
     }

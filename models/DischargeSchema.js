@@ -8,11 +8,11 @@ const dischargeSchema = new Schema({
   },
   classpaId: {
     type: Schema.Types.ObjectId,
-    ref: "Ptla",
+    ref: "User",
   },
   floorlaId: {
     type: Schema.Types.ObjectId,
-    ref: "Ptla",
+    ref: "User",
   },
   reason: String,
   leftDateTime: {

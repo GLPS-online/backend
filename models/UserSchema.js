@@ -2,7 +2,7 @@ const bcrypt = require("bcrypt");
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
-const ptlaSchema = new Schema(
+const userSchema = new Schema(
   {
     email: {
       type: String,
@@ -51,7 +51,7 @@ const ptlaSchema = new Schema(
   { timestamps: { updatedAt: "updated_at" } }
 );
 
-ptlaSchema.pre("save", async function (next) {
+userSchema.pre("save", async function (next) {
   const user = this;
   if (!user.isModified("password")) {
     return next();
@@ -65,11 +65,11 @@ ptlaSchema.pre("save", async function (next) {
   }
 });
 
-// ptlaSchema.methods.comparePassword = async (password) => {
+// userSchema.methods.comparePassword = async (password) => {
 //   return bcrypt.compare(password, this.password);
 // };
 
-// ptlaSchema.methods.generateToken = async () => {
+// userSchema.methods.generateToken = async () => {
 //   let user = this;
 //   let token = jwt.sign(user._id.toHexString(), "randomToken", {
 //     expiresIn: "24 hour",
@@ -79,6 +79,6 @@ ptlaSchema.pre("save", async function (next) {
 //   return newUser;
 // };
 
-const Ptla = mongoose.model("ptlas", ptlaSchema, "ptlas");
+const User = mongoose.model("users", userSchema, "users");
 
-module.exports = Ptla;
+module.exports = User;
