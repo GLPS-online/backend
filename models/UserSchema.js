@@ -29,9 +29,10 @@ const userSchema = new Schema(
       enum: ["PA", "LA", "TA", "HQ"],
       required: true,
     },
-    position: String,
+    position: { type: String, required: false, default: 9999 },
     // glps-coordinator, pa-class4, pa-computer, ta-rp, la-health-m
 
+    sortOrder: Number,
     area: {
       type: String,
       // TA의 경우: 맡은 교실 D-207
