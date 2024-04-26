@@ -23,7 +23,6 @@ router.get("/", authenticate, async (req, res) => {
   }
   try {
     const allUsers = await User.find().sort({ sortOrder: "asc" });
-    console.log(allUsers);
     return res.status(200).json(allUsers);
   } catch (err) {
     console.log(err);
