@@ -35,13 +35,7 @@ router.post("/login", async (req, res) => {
       expiresIn: 20 * 60 * 60,
     });
     console.log(token);
-    res
-      .cookie("auth", token, {
-        maxAge: 20 * 60 * 60 * 1000, // 20시간후 만료
-        httpOnly: true,
-      })
-      .status(200)
-      .json(user);
+    res.json({ user: user, token: token });
   } catch (error) {
     return res.status(500).json({ msg: "failed to login " + error });
   }
@@ -69,18 +63,18 @@ router.get("/me", authenticate, async (req, res) => {
   }
 });
 
-router.delete("/logout", async (req, res) => {
-  try {
-    return res
-      .status(200)
-      .clearCookie("auth", {
-        maxAge: 20 * 60 * 60 * 1000,
-        httpOnly: true,
-      })
-      .json(req.user);
-  } catch (error) {
-    return res.status(500).json({ msg: "failed logout " + error });
-  }
-});
+// router.delete("/logout", async (req, res) => {
+//   try {
+//     return res
+//       .status(200)
+//       .clearCookie("auth", {
+//         maxAge: 20 * 60 * 60 * 1000,
+//         httpOnly: true,
+//       })
+//       .json(req.user);
+//   } catch (error) {
+//     return res.status(500).json({ msg: "failed logout " + error });
+//   }
+// });
 
 module.exports = router;
