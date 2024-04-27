@@ -15,6 +15,7 @@ const cors = require("cors");
 app.use(
   cors({
     origin: true,
+    withCredentials: true,
     allowedHeaders: ["Content-Type", "Authorization"],
     preflightContinue: true,
   })
