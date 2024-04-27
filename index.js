@@ -15,14 +15,14 @@ const cors = require("cors");
 app.use(
   cors({
     origin: true,
-    allowedHeaders: ["Content-Type", "Authorization"],
+    allowedHeaders: ["Authorization"],
   })
 );
 app.options(
   "*",
   cors({
     origin: true,
-    allowedHeaders: ["Content-Type", "Authorization"],
+    allowedHeaders: ["Authorization"],
   })
 );
 app.get("/", (req, res) => {
