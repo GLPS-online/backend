@@ -1,5 +1,4 @@
 const jwt = require("jsonwebtoken");
-const parseBearerToken = require("parse-bearer-token");
 const { User } = require("../models");
 
 const authenticate = async (req, res, next) => {
