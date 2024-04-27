@@ -12,10 +12,14 @@ const userRoute = require("./routes/users");
 const timetableRoute = require("./routes/timetables");
 
 const cors = require("cors");
-app.use(cors());
-// app.use(function (req, res, next) {
-//   res.header("Access-Control-Allow-Headers", "*");
-// });
+// app.use(cors());
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Headers", "*");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept, Authorization"
+  );
+});
 app.get("/", (req, res) => {
   res.status(200).send({ msg: "WELCOME TO GLPS ONLINE BACKEND SERVER" });
 });
