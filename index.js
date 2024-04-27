@@ -16,6 +16,7 @@ app.use(
   cors({
     origin: true,
     allowedHeaders: ["Authorization"],
+    preflightContinue: true,
   })
 );
 app.options(
@@ -23,6 +24,7 @@ app.options(
   cors({
     origin: true,
     allowedHeaders: ["Authorization"],
+    preflightContinue: true,
   })
 );
 app.get("/", (req, res) => {
