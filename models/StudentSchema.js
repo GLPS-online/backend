@@ -12,7 +12,7 @@ const studentSchema = new Schema(
     status: {
       type: String,
       required: false,
-      default: "not-enrolled", //'enrolled', 'went-home', 'left-camp'
+      default: "active", //'active', 'nurse/hospital/counseling' , 'absent', 'discharged'
     },
     birthDate: Number,
     gender: String,
@@ -30,10 +30,9 @@ const studentSchema = new Schema(
     className: String, // Liberty, Fraternity etc..
     roomNum: Number,
     club: {
-      type: Schema.Types.ObjectId,
-      ref: "Club",
+      type: String,
       required: false,
-      default: null,
+      default: "-",
     },
   },
   { timestamps: { updatedAt: "updated_at" } }

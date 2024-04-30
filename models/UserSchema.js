@@ -37,16 +37,15 @@ const userSchema = new Schema(
       type: String,
       // TA의 경우: 맡은 교실 D-207
       // LA의 경우: 맡은 층 dorm-7
-      // 해당사항 없는 경우: null
+      // 해당사항 없는 경우: ""
       required: false,
-      default: null,
+      default: "",
     },
     roomNum: Number,
     club: {
-      type: Schema.Types.ObjectId,
-      ref: "Club",
+      type: String,
       required: false,
-      default: null,
+      default: "",
     },
   },
   { timestamps: { updatedAt: "updated_at" } }

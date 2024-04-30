@@ -10,6 +10,7 @@ const authRoute = require("./routes/auth");
 const studentRoute = require("./routes/students");
 const userRoute = require("./routes/users");
 const timetableRoute = require("./routes/timetables");
+const clubRoute = require("./routes/clubs");
 
 const cors = require("cors");
 app.use(
@@ -35,6 +36,8 @@ app.use("/auth", authRoute);
 app.use("/students", studentRoute);
 app.use("/users", userRoute);
 app.use("/timetables", timetableRoute);
+app.use("/clubs", clubRoute);
+app.use("/cards", timetableRoute);
 
 const start = async () => {
   try {
@@ -54,60 +57,3 @@ const start = async () => {
 };
 
 start();
-
-// app.get("/students", (req, res) => {
-//   const { classNum } = req.query;
-//   if (classNum) {
-//     // console.log(typeof classNum);
-//     const classMembers = students.filter((s) => s.classNum == Number(classNum));
-//     // console.log(classMembers);
-//     res.send(classMembers);
-//   } else {
-//     res.send(students);
-//   }
-// });
-
-// app.get("/students/:id", (req, res) => {
-//   const { id } = req.params;
-//   const student = students.find((s) => s.id === Number(id));
-//   if (student) {
-//     res.send(student);
-//   } else {
-//     res.status(404).send({ msg: "CANNOT FIND STUDENT" });
-//   }
-// });
-
-// app.post("/students", (req, res) => {
-//   console.log(req.body);
-//   res.send(req.body);
-// });
-
-// app.put("/students/:id", (req, res) => {
-//   const { id } = req.params;
-//   const updatedStudent = req.body;
-//   const student = students.find((s) => s.id === Number(id));
-//   console.log(student);
-//   if (student) {
-//     Object.keys(updatedStudent).forEach((key) => {
-//       student[key] = updatedStudent[key];
-//     });
-//     // below for in loop does the same job
-//     for (prop in updatedStudent) {
-//       student[prop] = updatedStudent[prop];
-//     }
-//     res.send(student);
-//   } else {
-//     res.status(404).send({ msg: "CANNOT FIND STUDENT" });
-//   }
-// });
-
-// app.delete("/students/:id", (req, res) => {
-//   const { id } = req.params;
-//   const length = students.length;
-//   students = students.filter((s) => s.id !== Number(id));
-//   if (students.length < length) {
-//     res.send("deleted");
-//   } else {
-//     res.status(404).send({ msg: "CANNOT FIND STUDENT" });
-//   }
-// });
