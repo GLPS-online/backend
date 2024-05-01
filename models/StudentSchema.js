@@ -32,7 +32,22 @@ const studentSchema = new Schema(
     club: {
       type: String,
       required: false,
-      default: "-",
+      default: "",
+    },
+    clubChoice1: {
+      type: String,
+      required: false,
+      default: "",
+    },
+    clubChoice2: {
+      type: String,
+      required: false,
+      default: "",
+    },
+    clubChoice3: {
+      type: String,
+      required: false,
+      default: "",
     },
   },
   { timestamps: { updatedAt: "updated_at" } }
