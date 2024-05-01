@@ -42,15 +42,17 @@ router.get("/:id", authenticate, async (req, res) => {
 
 //  개발용
 // /*
-router.post("/", async (req, res) => {
+router.post("/", authenticate, async (req, res) => {
+  if (req.user.admin < 2) {
+    return res.status(403).json({ msg: "no privilege" });
+  }
   try {
     let count = 0;
-    const promises = req.body.map(async (element) => {
-      const newUser = new User({ ...element });
+    for (const item of req.body) {
+      const newUser = new User({ ...item });
       await newUser.save();
       count++;
-    });
-    await Promise.all(promises);
+    }
     return res.status(201).json({ msg: `initlized ${count} users` });
   } catch (err) {
     console.log(err);
@@ -86,16 +88,16 @@ router.delete("/:id", authenticate, async (req, res) => {
   }
 });
 
-// router.delete("/", authenticate, async (req, res) => {
-//   if (req.user.admin < 2) {
-//     return res.status(403).json({ msg: "no privilege" });
-//   }
-//   try {
-//     const deleted = await User.deleteMany({ admin: { $ne: 2 } }).exec();
-//     return res.status(200).json(deleted);
-//   } catch (err) {
-//     return res.status(500).json({ msg: "failed to delete all" });
-//   }
-// });
+router.delete("/", authenticate, async (req, res) => {
+  if (req.user.admin < 2) {
+    return res.status(403).json({ msg: "no privilege" });
+  }
+  try {
+    const deleted = await User.deleteMany({ admin: { $ne: 2 } }).exec();
+    return res.status(200).json(deleted);
+  } catch (err) {
+    return res.status(500).json({ msg: "failed to delete all" });
+  }
+});
 
 module.exports = router;
