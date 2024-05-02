@@ -17,7 +17,7 @@ router.get("/users/:clubName", authenticate, async (req, res) => {
 router.get("/students", authenticate, async (req, res) => {
   try {
     const allStudents = await Student.find().select(
-      "_id korName birthDate className club clubChoice1 clubChoice2 clubChoice3"
+      "_id korName status birthDate className club clubChoice1 clubChoice2 clubChoice3"
     );
     return res.status(200).json(allStudents);
   } catch (err) {
