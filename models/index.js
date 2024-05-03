@@ -2,14 +2,13 @@ const Student = require("./StudentSchema");
 const Timetable = require("./TimetableSchema");
 const User = require("./UserSchema");
 const Meal = require("./MealSchema");
-const Discharge = require("./DischargeSchema");
-const Absence = require("./AbsenceSchema");
+const { Card, Eop } = require("./ActionsSchema");
 
 module.exports = {
   Student,
   User,
-  Absence,
-  Discharge,
   Meal,
   Timetable,
+  Card,
+  Eop,
 };

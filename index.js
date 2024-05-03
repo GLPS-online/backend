@@ -11,6 +11,7 @@ const studentRoute = require("./routes/students");
 const userRoute = require("./routes/users");
 const timetableRoute = require("./routes/timetables");
 const clubRoute = require("./routes/clubs");
+const actionRoute = require("./routes/actions");
 
 const cors = require("cors");
 app.use(
@@ -38,6 +39,7 @@ app.use("/users", userRoute);
 app.use("/timetables", timetableRoute);
 app.use("/clubs", clubRoute);
 app.use("/cards", timetableRoute);
+app.use("/actions", actionRoute);
 
 const start = async () => {
   try {
