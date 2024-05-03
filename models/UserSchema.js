@@ -63,7 +63,7 @@ const userSchema = new Schema(
       default: "",
     },
   },
-  { timestamps: { updatedAt: "updated_at" } }
+  { timestamps: true }
 );
 
 userSchema.pre("save", async function (next) {

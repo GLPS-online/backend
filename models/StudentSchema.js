@@ -50,7 +50,7 @@ const studentSchema = new Schema(
       default: "",
     },
   },
-  { timestamps: { updatedAt: "updated_at" } }
+  { timestamps: true }
 );
 
 //이후 모델 함수에 2스키마와 1모델 이름을 넘김.
