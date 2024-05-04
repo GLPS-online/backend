@@ -19,11 +19,11 @@ router.get("/card", authenticate, async (req, res) => {
 
 router.post("/card", authenticate, async (req, res) => {
   try {
-    const { students, type, reason } = req.body;
+    const { students, type, note } = req.body;
     const { _id: user } = req.user;
     let count = 0;
     for (const student of students) {
-      const newCard = new Card({ student, user, type, reason });
+      const newCard = new Card({ student, user, type, note });
       await newCard.save();
       count++;
     }
@@ -61,11 +61,11 @@ router.get("/eop", authenticate, async (req, res) => {
 
 router.post("/eop", authenticate, async (req, res) => {
   try {
-    const { students, reason } = req.body;
+    const { students, note } = req.body;
     const { _id: user } = req.user;
     let count = 0;
     for (const student of students) {
-      const newEop = new Eop({ student, user, reason });
+      const newEop = new Eop({ student, user, note });
       await newEop.save();
       count++;
     }

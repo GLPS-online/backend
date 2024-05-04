@@ -18,7 +18,7 @@ const cardSchema = new Schema(
       enum: ["red", "yellow", "green"],
       required: true,
     },
-    reason: {
+    note: {
       type: String,
       required: true,
     },
@@ -49,7 +49,7 @@ const eopSchema = new Schema(
       required: false,
       default: null,
     },
-    reason: {
+    note: {
       type: String,
       required: true,
     },
