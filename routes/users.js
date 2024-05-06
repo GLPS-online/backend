@@ -7,7 +7,9 @@ const { User } = require("../models");
 router.get("/", authenticate, async (req, res) => {
   if (req.query.position) {
     try {
-      const user = await User.findOne({ position: req.query.position });
+      const user = await User.findOne({ position: req.query.position }).select(
+        "korName wave division"
+      );
       return res.status(200).json(user);
     } catch (err) {
       return res.status(500).json({ msg: "failed to find" });
@@ -15,7 +17,9 @@ router.get("/", authenticate, async (req, res) => {
   }
   if (req.query.area) {
     try {
-      const user = await User.findOne({ area: req.query.area });
+      const user = await User.findOne({ area: req.query.area }).select(
+        "korName wave division"
+      );
       return res.status(200).json(user);
     } catch (err) {
       return res.status(500).json({ msg: "failed to find" });

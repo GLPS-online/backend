@@ -85,7 +85,7 @@ const shuttleSchema = new Schema(
     },
     time: {
       type: String,
-      enum: ["오전등교", "2 ➔ 3 교시", "오후등교", "6 ➔ 7 교시", "자습수업"],
+      enum: ["오전등교", "3교시 이동", "오후등교", "7교시 이동", "자습수업"],
       required: true,
     },
     departure: {

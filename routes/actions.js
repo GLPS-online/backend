@@ -2,15 +2,16 @@ const express = require("express");
 const router = express.Router();
 const { authenticate } = require("../middlewares/auth");
 
-const { Card, Eop } = require("../models");
-const { Study, Shuttle } = require("../models/ActionsSchema");
+const { Card, Eop, Shuttle, Study } = require("../models");
 
 router.get("/card", authenticate, async (req, res) => {
   try {
-    const { type } = req.query;
-    const cards = await Card.find({ type: type })
+    const cards = await Card.find()
       .sort({ _id: -1 })
-      .populate("student user", { korName: 1 });
+      .populate([
+        { path: "user", select: "korName wave division" },
+        { path: "student", select: "korName status" },
+      ]);
     res.status(200).json(cards);
   } catch (err) {
     res.status(400).json({ msg: err });
@@ -39,7 +40,8 @@ router.delete("/card/:id", authenticate, async (req, res) => {
   }
   try {
     const { id } = req.params;
-    await Card.findByIdAndDelete(id);
+    const todelete = await Card.findById(id);
+    await todelete.deleteOne();
     res.status(200).json({ msg: "deleted" });
   } catch (err) {
     res.status(400).json({ msg: err });
@@ -50,9 +52,11 @@ router.get("/eop", authenticate, async (req, res) => {
   try {
     const eops = await Eop.find()
       .sort({ _id: -1 })
-      .populate("student user approvedBy", {
-        korName: 1,
-      });
+      .populate([
+        { path: "user", select: "korName wave division" },
+        { path: "approvedBy", select: "korName wave division" },
+        { path: "student", select: "korName status" },
+      ]);
     res.status(200).json(eops);
   } catch (err) {
     res.status(400).json({ msg: err });
@@ -116,7 +120,8 @@ router.delete("/eop/:id", authenticate, async (req, res) => {
   }
   try {
     const { id } = req.params;
-    await Eop.findByIdAndDelete(id);
+    const todelete = await Eop.findById(id);
+    await todelete.deleteOne();
     res.status(200).json({ msg: "deleted" });
   } catch (err) {
     res.status(400).json({ msg: err });
@@ -126,9 +131,13 @@ router.delete("/eop/:id", authenticate, async (req, res) => {
 router.get("/study", authenticate, async (req, res) => {
   try {
     const { date } = req.query;
-    const studies = await Study.find({ date: date }).populate("student user", {
-      korName: 1,
-    });
+    const studies = await Study.find({ date: date }).populate([
+      { path: "user", select: "korName wave division" },
+      {
+        path: "student",
+        select: "korName status birthDate className roomNum ",
+      },
+    ]);
     res.status(200).json(studies);
   } catch (err) {
     res.status(400).json({ msg: err });
@@ -158,7 +167,7 @@ router.delete("/study/:id", authenticate, async (req, res) => {
     if (toDelete.user !== req.user._id && req.user.admin < 1) {
       return res.status(403).json({ msg: "no privilege" });
     }
-    await Study.findByIdAndDelete(id);
+    await toDelete.deleteOne();
     res.status(200).json({ msg: "deleted" });
   } catch (err) {
     res.status(400).json({ msg: err });
@@ -168,10 +177,10 @@ router.delete("/study/:id", authenticate, async (req, res) => {
 router.get("/shuttle", authenticate, async (req, res) => {
   try {
     const { date } = req.query;
-    const shuttles = await Shuttle.find({ date: date }).populate(
-      "student user",
-      { korName: 1 }
-    );
+    const shuttles = await Shuttle.find({ date: date }).populate([
+      { path: "user", select: "korName wave division" },
+      { path: "student", select: "korName status birthDate" },
+    ]);
     res.status(200).json(shuttles);
   } catch (err) {
     res.status(400).json({ msg: err });
@@ -208,7 +217,7 @@ router.delete("/shuttle/:id", authenticate, async (req, res) => {
     if (toDelete.user !== req.user._id && req.user.admin < 1) {
       return res.status(403).json({ msg: "no privilege" });
     }
-    await Shuttle.findByIdAndDelete(id);
+    await toDelete.deleteOne();
     res.status(200).json({ msg: "deleted" });
   } catch (err) {
     res.status(400).json({ msg: err });
