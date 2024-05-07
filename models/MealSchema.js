@@ -2,11 +2,10 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const mealSchema = new Schema({
-  date: Date,
-  time: Number,
-  // 0아침 1점심 2저녁
-  menu: String,
-  //엔터로 구분된 메뉴
+  dayIndex: Number, // 0 for monday, 6 for sunday
+  timeIndex: Number, // 0 for breakfast, 1 for lunch, 2 for dinner, 3 for snack
+  menu: String, // 백미밥, 김치볶음<sup>5.9</sup>, 낙지수제비<sup>5.6</sup>
+  upVotes: [{ type: Schema.Types.ObjectId, ref: "users" }],
 });
 
 const Meal = mongoose.model("meals", mealSchema, "meals");
