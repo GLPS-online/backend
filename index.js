@@ -12,6 +12,7 @@ const userRoute = require("./routes/users");
 const timetableRoute = require("./routes/timetables");
 const clubRoute = require("./routes/clubs");
 const actionRoute = require("./routes/actions");
+const mealRoute = require("./routes/meals");
 
 const cors = require("cors");
 app.use(
@@ -40,6 +41,7 @@ app.use("/timetables", timetableRoute);
 app.use("/clubs", clubRoute);
 app.use("/cards", timetableRoute);
 app.use("/actions", actionRoute);
+app.use("/meals", mealRoute);
 
 const start = async () => {
   try {
