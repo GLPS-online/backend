@@ -5,9 +5,8 @@ const { authenticate } = require("../middlewares/auth");
 const { Meal } = require("../models");
 
 router.get("/", authenticate, async (req, res) => {
-  const { dayIndex } = req.query;
   try {
-    const meals = await Meal.find({ dayIndex }).exec();
+    const meals = await Meal.find().exec();
     return res.status(200).json(meals);
   } catch (err) {
     return res.status(500).json({ msg: "failed to find" });
