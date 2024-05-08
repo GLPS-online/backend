@@ -6,7 +6,7 @@ const { Meal } = require("../models");
 
 router.get("/", authenticate, async (req, res) => {
   try {
-    const meals = await Meal.find().exec();
+    const meals = await Meal.find().sort({ dayIndex: 1, timeIndex: 1 }).exec();
     return res.status(200).json(meals);
   } catch (err) {
     return res.status(500).json({ msg: "failed to find" });
