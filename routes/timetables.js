@@ -29,7 +29,10 @@ router.post("/:className", authenticate, async (req, res) => {
   }
   try {
     const { className } = req.params;
-    // console.log(req.body);
+    const already = await Timetable.findOne({ className }).exec();
+    if (already) {
+      await already.deleteOne();
+    }
     const { advisor, office, table } = req.body;
     const newTimetable = new Timetable({
       className,

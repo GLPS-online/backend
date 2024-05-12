@@ -21,7 +21,6 @@ router.post("/", authenticate, async (req, res) => {
     const { dayIndex, timeIndex } = req.body;
     const already = await Meal.findOne({ dayIndex, timeIndex }).exec();
     if (already) {
-      console.log(already);
       await already.deleteOne();
     }
     const newMeal = new Meal(req.body);
