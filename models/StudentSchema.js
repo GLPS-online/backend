@@ -12,7 +12,8 @@ const studentSchema = new Schema(
     status: {
       type: String,
       required: false,
-      default: "active", //'active', 'nurse/hospital/counseling' , 'absent', 'discharged'
+      enum: ["pending", "active", "absent", "discharged"],
+      default: "active", // 'pending', 'active', 'absent(nurse/hospital/counseling..etc)', 'discharged'
     },
     birthDate: Number,
     gender: String,
