@@ -42,6 +42,26 @@ router.post("/", authenticate, async (req, res) => {
   }
 });
 
+router.put("/classNames", authenticate, async (req, res) => {
+  if (req.user.admin < 2) {
+    return res.status(403).json({ msg: "no privilege" });
+  }
+  try {
+    let count = 0;
+    for (const item of req.body) {
+      const { korName, className } = item;
+      await Student.findOneAndUpdate({ korName }, { className }).exec();
+      count++;
+    }
+    return res
+      .status(200)
+      .json({ msg: `assigned classNames to ${count} students` });
+  } catch (err) {
+    console.log(err);
+    return res.status(500).json({ msg: "failed to update" });
+  }
+});
+
 router.put("/:id", authenticate, async (req, res) => {
   if (req.user.admin < 1) {
     return res.status(403).json({ msg: "no privilege" });
